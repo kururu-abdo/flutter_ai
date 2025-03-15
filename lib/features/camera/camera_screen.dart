@@ -11,7 +11,7 @@ import 'package:path/path.dart';
 class CameraScreen extends StatefulWidget {
   final List<CameraDescription> cameras;
 
-  CameraScreen({required this.cameras});
+  const CameraScreen({super.key, required this.cameras});
 
   @override
   _CameraScreenState createState() => _CameraScreenState();
@@ -54,7 +54,7 @@ class _CameraScreenState extends State<CameraScreen> {
   Future<String> recognizeObject(File imageFile) async {
     final uri = Uri.parse('https://api.openai.com/v1/images/classify');
     final request = http.MultipartRequest('POST', uri)
-      ..headers['Authorization'] = 'Bearer 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'
+      ..headers['Authorization'] = 'Bearer ${Platform.environment['API_KEY']}'
       ..files.add(await http.MultipartFile.fromPath(
         'image',
         imageFile.path,
